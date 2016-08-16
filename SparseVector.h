@@ -7,17 +7,20 @@
 
 
 #include <vector>
+#include <memory>
+
+using namespace std;
 
 class SparseVector {
 public:
-    SparseVector(std::vector<int> dimensions, std::vector<double> values);
+    SparseVector(vector<int>* dimensions, vector<double>* values);
     double angle(const SparseVector& other) const;
     double magnitude() const;
     double dot(const SparseVector& other) const;
 
 protected:
-    std::vector<int> dimensions;
-    std::vector<double> values;
+    unique_ptr<vector<int>> dimensions;
+    unique_ptr<vector<double>> values;
 };
 
 #endif //HELLO_WORLD_SPARSEVECTOR_H

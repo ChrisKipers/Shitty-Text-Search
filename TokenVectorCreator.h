@@ -16,8 +16,8 @@ using namespace std;
 
 class TokenVectorCreator {
 public:
-    TokenVectorCreator(vector<string> all_tokens);
-    SparseVector create_sparse_vector(vector<string> tokens) const;
+    TokenVectorCreator(const vector<string>& all_tokens);
+    SparseVector create_sparse_vector(const vector<string>& tokens) const;
 private:
     map<string, int> get_count_by_token(const vector<string>& tokens) const;
     map<string, int> _count_by_token;

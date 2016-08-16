@@ -3,7 +3,9 @@
 
 #include "SparseVector.h"
 
-SparseVector::SparseVector(std::vector<int> dimensions, std::vector<double> values) : dimensions(dimensions), values(values) {}
+using namespace std;
+
+SparseVector::SparseVector(vector<int>* dimensions, vector<double>* values) : dimensions(dimensions), values(values) {}
 
 double SparseVector::angle(const SparseVector &other) const {
     double degree_in_rad = acos(dot(other) / (magnitude() * other.magnitude()));
@@ -12,8 +14,8 @@ double SparseVector::angle(const SparseVector &other) const {
 
 double SparseVector::magnitude() const {
     double accumulator = 0;
-    for (int i = 0; i < dimensions.size(); i++) {
-        accumulator += powf(values[i], 2);
+    for (int i = 0; i < dimensions.get()->size(); i++) {
+        accumulator += powf(values.get()->at(i), 2);
     }
     return sqrtf(accumulator);
 }
@@ -22,12 +24,12 @@ double SparseVector::dot(const SparseVector &other) const {
     double accumulator = 0;
     int this_index = 0;
     int other_index = 0;
-    while (this_index < dimensions.size() && other_index < other.dimensions.size()) {
-        if (dimensions[this_index] == other.dimensions[other_index]) {
-            accumulator += values[this_index] * other.values[other_index];
+    while (this_index < dimensions.get()->size() && other_index < other.dimensions.get()->size()) {
+        if (dimensions.get()->at(this_index) == other.dimensions.get()->at(other_index)) {
+            accumulator += values.get()->at(this_index) * other.values.get()->at(other_index);
             this_index++;
             other_index++;
-        } else if (dimensions[this_index] < other.dimensions[other_index]) {
+        } else if (dimensions.get()->at(this_index) < other.dimensions.get()->at(other_index)) {
             this_index++;
         } else {
             other_index++;

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-TokenVectorCreator::TokenVectorCreator(vector<string> all_tokens) {
+TokenVectorCreator::TokenVectorCreator(const vector<string>& all_tokens) {
     _count_by_token = get_count_by_token(all_tokens);
 
     int pos = 0;
@@ -16,13 +16,12 @@ TokenVectorCreator::TokenVectorCreator(vector<string> all_tokens) {
     }
 }
 
-SparseVector TokenVectorCreator::create_sparse_vector(vector<string> tokens) const {
+SparseVector TokenVectorCreator::create_sparse_vector(const vector<string>& tokens) const {
     map<string, int> count_by_token = get_count_by_token(tokens);
     map<string, double> tf_idf_by_token;
 
     for (map<string, int>::iterator iter = count_by_token.begin(); iter != count_by_token.end(); ++iter) {
         string token = iter->first;
-        // TODO handle case were token is not in corpus...
         try {
             tf_idf_by_token[token] = _count_by_token.at(token) / (1.0 / count_by_token[token]);
         } catch (std::out_of_range e) {
@@ -46,12 +45,12 @@ SparseVector TokenVectorCreator::create_sparse_vector(vector<string> tokens) con
             position_and_tf_idfs.end(),
             [](pair<int, double> lhs, pair<int, double> rhs) { return lhs.first < rhs.first; });
 
-    vector<int> positions;
-    vector<double> values;
+    vector<int>* positions = new vector<int>;
+    vector<double>* values = new vector<double>;
 
     for (pair<int, double> p : position_and_tf_idfs) {
-        positions.push_back(p.first);
-        values.push_back(p.second);
+        positions->push_back(p.first);
+        values->push_back(p.second);
     }
     SparseVector sv(positions, values);
     return sv;
