@@ -1,11 +1,4 @@
-//
-// Created by chris on 8/14/16.
-//
-
 #include "StopWordRemover.h"
-
-#include <string>
-#include <vector>
 #include <fstream>
 
 using namespace std;
@@ -20,12 +13,12 @@ StopWordRemover::StopWordRemover() {
     }
 };
 
-vector<string> StopWordRemover::process(const vector<string>& tokens) {
-    vector<string> filtered_tokens;
+vector<string>* StopWordRemover::process(const vector<string>& tokens) {
+    vector<string>* filtered_tokens = new vector<string>;
     set<string>::iterator end = _stop_words.end();
     for (string token : tokens) {
         if (_stop_words.find(token) == end) {
-            filtered_tokens.push_back(token);
+            filtered_tokens->push_back(token);
         }
     }
     return filtered_tokens;

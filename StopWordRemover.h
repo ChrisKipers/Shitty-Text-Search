@@ -1,10 +1,5 @@
-//
-// Created by chris on 8/14/16.
-//
-
 #ifndef HELLO_WORLD_STOPWORDREMOVER_H
 #define HELLO_WORLD_STOPWORDREMOVER_H
-
 
 #include <set>
 #include <string>
@@ -13,7 +8,7 @@
 class StopWordRemover : public TokenModifier {
 public:
     StopWordRemover();
-    vector<string> process(const vector<string>& tokens);
+    vector<string>* process(const vector<string>& tokens);
 private:
     set<string> _stop_words;
 };

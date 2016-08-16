@@ -1,7 +1,3 @@
-//
-// Created by chris on 8/14/16.
-//
-
 #ifndef HELLO_WORLD_TOKENVECTORCREATOR_H
 #define HELLO_WORLD_TOKENVECTORCREATOR_H
 

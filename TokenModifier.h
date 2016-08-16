@@ -12,7 +12,7 @@ using namespace std;
 
 class TokenModifier {
 public:
-    virtual vector<string> process(const vector<string>& tokens) = 0;
+    virtual vector<string>* process(const vector<string>& tokens) = 0;
 };
 
 

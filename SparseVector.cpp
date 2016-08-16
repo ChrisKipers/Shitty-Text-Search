@@ -1,6 +1,5 @@
 #include <math.h>
 #include <vector>
-
 #include "SparseVector.h"
 
 using namespace std;
