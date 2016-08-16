@@ -1,0 +1,14 @@
+//
+// Created by chris on 8/15/16.
+//
+
+#ifndef SHITTYTEXTSEARCH_SNIPPETGENERATOR_H
+#define SHITTYTEXTSEARCH_SNIPPETGENERATOR_H
+
+
+class SnippetGenerator {
+
+};
+
+
+#endif //SHITTYTEXTSEARCH_SNIPPETGENERATOR_H

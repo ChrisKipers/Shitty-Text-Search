@@ -14,14 +14,14 @@ TextProcessor::TextProcessor() {
     token_modifiers.push_back(new StopWordRemover);
 }
 
-vector<string>* TextProcessor::process_text(const string &content) {
+vector<string> TextProcessor::process_text(const string &content) {
     string no_punch = remove_punctuation(content);
-    unique_ptr<vector<string>> tokens(tokenize(no_punch));
+    auto tokens = tokenize(no_punch);
 
     for (TokenModifier* modifier : token_modifiers) {
-        tokens.reset(modifier->process(*tokens));
+        tokens = modifier->process(tokens);
     }
-    return tokens.release();
+    return tokens;
 }
 
 string TextProcessor::remove_punctuation(const string &content) {
@@ -29,8 +29,8 @@ string TextProcessor::remove_punctuation(const string &content) {
     return regex_replace(no_punc, multipe_spaces, " ");
 }
 
-vector<string>* TextProcessor::tokenize(const string &content) {
-    vector<string>* tokens = new vector<string>;
-    boost::split(*tokens, content, boost::is_any_of(" "));
+vector<string> TextProcessor::tokenize(const string &content) {
+    vector<string> tokens;
+    boost::split(tokens, content, boost::is_any_of(" "));
     return tokens;
 }

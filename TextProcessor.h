@@ -11,11 +11,11 @@ class TextProcessor {
 public:
     TextProcessor();
     ~TextProcessor();
-    vector<string>* process_text(const string& content);
+    vector<string> process_text(const string& content);
 
 private:
     string remove_punctuation(const string& content);
-    vector<string>* tokenize(const string& content);
+    vector<string> tokenize(const string& content);
     vector<TokenModifier*> token_modifiers;
 };
 

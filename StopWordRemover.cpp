@@ -13,12 +13,12 @@ StopWordRemover::StopWordRemover() {
     }
 };
 
-vector<string>* StopWordRemover::process(const vector<string>& tokens) {
-    vector<string>* filtered_tokens = new vector<string>;
+vector<string> StopWordRemover::process(const vector<string>& tokens) {
+    vector<string> filtered_tokens;
     set<string>::iterator end = _stop_words.end();
     for (string token : tokens) {
         if (_stop_words.find(token) == end) {
-            filtered_tokens->push_back(token);
+            filtered_tokens.push_back(token);
         }
     }
     return filtered_tokens;

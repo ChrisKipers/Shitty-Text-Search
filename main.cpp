@@ -21,22 +21,20 @@ int main(int argc, char* argv[]) {
     text_processor = new TextProcessor;
 
     map<string, string> file_contents_by_path = get_content_in_dir(argv[1]);
-    map<string, vector<string>*> tokens_by_path;
+    map<string, vector<string>> tokens_by_path;
     vector<string> all_tokens;
 
     for (map<string, string>::iterator iter = file_contents_by_path.begin(); iter != file_contents_by_path.end(); ++iter) {
-        vector<string>* tokens = text_processor->process_text(iter->second);
+        vector<string> tokens = text_processor->process_text(iter->second);
         tokens_by_path[iter->first] = tokens;
-        all_tokens.insert(all_tokens.end(), tokens->begin(), tokens->end());
+        all_tokens.insert(all_tokens.end(), tokens.begin(), tokens.end());
     }
 
     TokenVectorCreator tvc(all_tokens);
 
     map<string, SparseVector> text_vector_by_path;
-    for (map<string, vector<string>*>::iterator iter = tokens_by_path.begin(); iter != tokens_by_path.end(); ++iter) {
-        text_vector_by_path.emplace(iter->first, tvc.create_sparse_vector(*(iter->second)));
-        // No longer need the vector.
-        delete iter->second;
+    for (map<string, vector<string>>::iterator iter = tokens_by_path.begin(); iter != tokens_by_path.end(); ++iter) {
+        text_vector_by_path.emplace(iter->first, tvc.create_sparse_vector(iter->second));
     }
 
     search_repl(tvc, text_vector_by_path);
@@ -60,8 +58,8 @@ void search_repl(const TokenVectorCreator& tvc, const map<string, SparseVector>&
 }
 
 void process_query(const string& query, const TokenVectorCreator& tvc, const map<string, SparseVector>& text_vector_by_path) {
-    unique_ptr<vector<string>> query_tokens(text_processor->process_text(query));
-    SparseVector query_vector = tvc.create_sparse_vector(*query_tokens);
+    auto query_tokens = text_processor->process_text(query);
+    SparseVector query_vector = tvc.create_sparse_vector(query_tokens);
     vector<pair<string, float>> path_and_score;
     for (map<string, SparseVector>::const_iterator iter = text_vector_by_path.begin();
          iter != text_vector_by_path.end(); ++iter) {
