@@ -39,16 +39,16 @@ SparseVector TokenVectorCreator::create_sparse_vector(const vector<string>& toke
     sort(
             position_and_tf_idfs.begin(),
             position_and_tf_idfs.end(),
-            [](pair<int, double> lhs, pair<int, double> rhs) { return lhs.first < rhs.first; });
+            [](const pair<int, double>& lhs, const pair<int, double>& rhs) { return lhs.first < rhs.first; });
 
-    vector<int>* positions = new vector<int>;
-    vector<double>* values = new vector<double>;
+    vector<int> positions;
+    vector<double> values;
 
     for (pair<int, double> p : position_and_tf_idfs) {
-        positions->push_back(p.first);
-        values->push_back(p.second);
+        positions.push_back(p.first);
+        values.push_back(p.second);
     }
-    SparseVector sv(positions, values);
+    SparseVector sv(std::move(positions), std::move(values));
     return sv;
 }
 

@@ -5,7 +5,7 @@
 
 class TokenCaseConverter : public TokenModifier {
 public:
-    vector<string> process(const vector<string>& tokens);
+    vector<string> process(const vector<string>& tokens) const;
 };
 
 

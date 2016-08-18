@@ -10,13 +10,12 @@ using namespace std;
 class TextProcessor {
 public:
     TextProcessor();
-    ~TextProcessor();
-    vector<string> process_text(const string& content);
+    vector<string> process_text(const string& content) const;
 
 private:
-    string remove_punctuation(const string& content);
-    vector<string> tokenize(const string& content);
-    vector<TokenModifier*> token_modifiers;
+    string remove_punctuation(const string& content) const;
+    vector<string> tokenize(const string& content) const;
+    vector<unique_ptr<TokenModifier>> token_modifiers; // mut be reference for polymorphism :(
 };
 
 

@@ -9,14 +9,14 @@ const string STOP_WORD_FILE_PATH = "/home/chris/ClionProjects/hello-world/refs/s
 StopWordRemover::StopWordRemover() {
     ifstream stop_word_file(STOP_WORD_FILE_PATH);
     for (string line; getline(stop_word_file, line);) {
-        _stop_words.insert(line);
+        _stop_words.insert(std::move(line));
     }
 };
 
-vector<string> StopWordRemover::process(const vector<string>& tokens) {
+vector<string> StopWordRemover::process(const vector<string>& tokens) const {
     vector<string> filtered_tokens;
     set<string>::iterator end = _stop_words.end();
-    for (string token : tokens) {
+    for (const string& token : tokens) {
         if (_stop_words.find(token) == end) {
             filtered_tokens.push_back(token);
         }

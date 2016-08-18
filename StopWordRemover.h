@@ -8,7 +8,7 @@
 class StopWordRemover : public TokenModifier {
 public:
     StopWordRemover();
-    vector<string> process(const vector<string>& tokens);
+    vector<string> process(const vector<string>& tokens) const;
 private:
     set<string> _stop_words;
 };

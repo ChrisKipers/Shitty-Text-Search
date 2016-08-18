@@ -18,12 +18,12 @@ map<string, string> get_content_in_dir(string dir_path) {
     vector<string> paths = get_paths_in_dir(dir_path);
     map<string, string> content_by_path;
 
-    for (vector<string>::iterator iter = paths.begin(); iter != paths.end(); ++iter) {
+    for (const string& path : paths) {
         ifstream in_file;
-        in_file.open(*iter);
+        in_file.open(path);
         stringstream str_stream;
         str_stream << in_file.rdbuf();
-        content_by_path[*iter] = str_stream.str();
+        content_by_path[path] = str_stream.str();
     }
 
     return content_by_path;
@@ -41,7 +41,7 @@ vector<string> get_paths_in_dir(string dir_path) {
     }
 
     vector<string> text_files;
-    for (directory_entry& x : directory_iterator(root_dir)) {
+    for (const directory_entry& x : directory_iterator(root_dir)) {
         bool is_txt_extention = regex_match(x.path().string(), text_file_regex);
         if (is_regular_file(x.path()) && is_txt_extention) {
             text_files.push_back(x.path().string());
