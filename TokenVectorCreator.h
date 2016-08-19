@@ -12,7 +12,7 @@ using namespace std;
 
 class TokenVectorCreator {
 public:
-    TokenVectorCreator(const vector<string>& all_tokens);
+    void initialize(const vector<string>& all_tokens);
     SparseVector create_sparse_vector(const vector<string>& tokens) const;
 private:
     map<string, int> get_count_by_token(const vector<string>& tokens) const;

@@ -3,7 +3,7 @@
 
 using namespace std;
 
-TokenVectorCreator::TokenVectorCreator(const vector<string>& all_tokens) {
+void TokenVectorCreator::initialize(const vector<string> &all_tokens) {
     _count_by_token = get_count_by_token(all_tokens);
 
     int pos = 0;

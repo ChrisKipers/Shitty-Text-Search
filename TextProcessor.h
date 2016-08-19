@@ -10,6 +10,7 @@ using namespace std;
 class TextProcessor {
 public:
     TextProcessor();
+    TextProcessor(const TextProcessor& rhs) = delete;
     vector<string> process_text(const string& content) const;
 
 private:
