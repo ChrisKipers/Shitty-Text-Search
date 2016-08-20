@@ -11,6 +11,8 @@
 
 using namespace std;
 
+struct DocumentProcessingContainer;
+
 class DocumentRepository {
 public:
     DocumentRepository(
@@ -24,6 +26,7 @@ public:
     const vector<IndexedDocument*> queryDocuments(const string& query, const int& max_number_of_results) const;
 
 private:
+    vector<DocumentProcessingContainer> getDocumentProcessingContiner(const map<string, string>& file_contents_by_path) const;
     vector<unique_ptr<IndexedDocument>> documents;
     shared_ptr<TokenVectorCreator> token_vector_creator;
     shared_ptr<ContentLoader> content_loader;
