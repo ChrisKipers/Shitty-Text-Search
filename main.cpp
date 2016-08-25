@@ -4,6 +4,7 @@
 #include "TokenVectorCreator.h"
 #include "TextProcessor.h"
 #include "DocumentRepository.h"
+#include "SnippitCreator.h"
 
 using namespace std;
 
@@ -18,6 +19,8 @@ int main(int argc, char* argv[]) {
     TokenVectorCreator* tvc = new TokenVectorCreator;
     DocumentRanker* dr = new DocumentRanker(tvc, tp);
     DocumentRepository document_repository(cl, tp, tvc, dr);
+
+    SnippitCreator sp(tp);
 
     document_repository.loadDocumentsFromDirectory(argv[1]);
 
@@ -34,6 +37,7 @@ int main(int argc, char* argv[]) {
         vector<IndexedDocument*> results = document_repository.queryDocuments(query, 5);
         for (const auto* result : results) {
             cout << result->getGetFileName() << endl;
+            cout << sp.createSnippet(result->getContent(), query) << endl << endl;
         }
     }
 
